@@ -1,0 +1,23 @@
+{
+  "gui.tour_guide.key_tip": "Done [%s], Skip [%s], Quit [%s]",
+  "gui.tour_guide.key_tip_no_skip": "Done [%s], Quit [%s]",
+  "gui.tour_guide.key_tip_shift": "Previous Step [Shift + %s]",
+  "key.tour_guide.category": "Tour Guide",
+  "key.tour_guide.check_step": "Done Current Stop",
+  "key.tour_guide.quit": "Quit Interactive Tour",
+  "key.tour_guide.skip": "Skip Current Stop",
+  "key.tour_guide.start": "Start Interactive Tour",
+  "key.tour_guide.switch": "Switch Tour",
+  "message.tour_guide.cannot_skip": "This stop cannot be skipped. Please complete the action as instructed.",
+  "message.tour_guide.end": "Interactive tour ended",
+  "message.tour_guide.next_step_tip": "If you have completed, press [%s] to continue the tour.",
+  "message.tour_guide.next_step_tip_no_condition": "press [%s] to continue the tour.",
+  "message.tour_guide.prefix": "<Guide>",
+  "message.tour_guide.skip_step_tip": "Or, you can press [%s] to skip this stop.",
+  "message.tour_guide.start": "Interactive tour started. Today's tour is: [%s]",
+  "message.tour_guide.step": "[Interactive Tour] %s Stop %s of %s",
+  "tooltip.tour_guide.item_tour_guide": "[ %s ]",
+  "tooltip.tour_guide.item_tour_guide.hold": "[%s%s]",
+  "tooltip.tour_guide.item_tour_guide.start": "Hold [%s] To Start Interactive Tour",
+  "tooltip.tour_guide.item_tour_guide.switch": "Press [%s] To Switch Tour"
+}

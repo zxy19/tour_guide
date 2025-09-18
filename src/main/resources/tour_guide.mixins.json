@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "studio.fantasyit.tour_guide.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "tour_guide.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

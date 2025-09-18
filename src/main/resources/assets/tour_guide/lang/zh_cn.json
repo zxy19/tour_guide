@@ -1,0 +1,23 @@
+{
+  "gui.tour_guide.key_tip": "完成 [%s], 跳过 [%s], 退出 [%s]",
+  "gui.tour_guide.key_tip_no_skip": "完成 [%s], 退出 [%s]",
+  "gui.tour_guide.key_tip_shift": "上一步 [Shift + %s]",
+  "key.tour_guide.category": "导游",
+  "key.tour_guide.check_step": "完成当前站点",
+  "key.tour_guide.quit": "退出互动式导览",
+  "key.tour_guide.skip": "跳过当前站点",
+  "key.tour_guide.start": "开始互动式导览",
+  "key.tour_guide.switch": "切换导览行程",
+  "message.tour_guide.cannot_skip": "这个站点不可跳过，请按照说明完成操作",
+  "message.tour_guide.end": "互动式导览结束",
+  "message.tour_guide.next_step_tip": "如果你已经完成上述操作，请按下[%s]来继续导览。",
+  "message.tour_guide.next_step_tip_no_condition": "请按下[%s]来继续导览。",
+  "message.tour_guide.prefix": "<导游>",
+  "message.tour_guide.skip_step_tip": "或者，你可以选择按下[%s]来跳过这个站点",
+  "message.tour_guide.start": "互动式导览开始，今天的导览行程是：[%s]",
+  "message.tour_guide.step": "[互动式导览] %s 站点%s。共%s个站点",
+  "tooltip.tour_guide.item_tour_guide": "[ %s ]",
+  "tooltip.tour_guide.item_tour_guide.hold": "[%s%s]",
+  "tooltip.tour_guide.item_tour_guide.start": "按住 [%s] 开始互动式导览",
+  "tooltip.tour_guide.item_tour_guide.switch": "按 [%s] 来切换行程"
+}
