@@ -8,6 +8,8 @@ import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.api.event.ClientMarkRendererRegisterEvent;
 import studio.fantasyit.tour_guide.api.event.ScreenPredicatorRegisterEvent;
+import studio.fantasyit.tour_guide.integration.Integrations;
+import studio.fantasyit.tour_guide.integration.kubejs.KubeJSPort;
 
 @EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class SetupEvent {
@@ -16,6 +18,8 @@ public class SetupEvent {
         event.enqueueWork(() -> {
             ModLoader.postEvent(new ClientMarkRendererRegisterEvent());
             ModLoader.postEvent(new ScreenPredicatorRegisterEvent());
+            if (Integrations.kjs())
+                KubeJSPort.setupClient();
         });
     }
 }

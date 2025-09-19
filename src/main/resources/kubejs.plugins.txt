@@ -1,0 +1,1 @@
+studio.fantasyit.tour_guide.integration.kubejs.KJSPlugin
