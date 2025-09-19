@@ -2,6 +2,7 @@ package studio.fantasyit.tour_guide.api.helper;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.data.ITourDataFactory;
 import studio.fantasyit.tour_guide.data.TourData;
 import studio.fantasyit.tour_guide.step.ITourStepData;
@@ -34,12 +35,13 @@ public class TourDataBuilder {
         return new TourStepBuilder<>(this, id);
     }
 
-    public TourStepBuilder<Boolean> step(ResourceLocation id) {
+    public TourStepBuilder<Boolean> stepBoolean(ResourceLocation id) {
         return new TourStepBuilder<>(this, new TourStepId<>(id, Boolean.class));
     }
 
-    public <T> TourStepBuilder<T> step(ResourceLocation id, Class<T> clazz) {
-        return new TourStepBuilder<>(this, new TourStepId<>(id, clazz));
+    public TourStepBuilder<Boolean> stepAnonymous() {
+        ResourceLocation id = new ResourceLocation(TourGuide.MODID, "anonymous_step/" + steps.size());
+        return stepBoolean(id);
     }
 
     public ITourDataFactory getBuilder() {
