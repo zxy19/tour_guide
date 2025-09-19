@@ -7,7 +7,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import studio.fantasyit.tour_guide.TourGuide;
-import studio.fantasyit.tour_guide.client.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientQuitCounter;
 
 @Mod.EventBusSubscriber(modid = TourGuide.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TickScreenEvent {
@@ -18,5 +19,6 @@ public class TickScreenEvent {
         } else {
             ClientItemTourGuideCounter.updateHoveredItem(null);
         }
+        ClientQuitCounter.tick();
     }
 }

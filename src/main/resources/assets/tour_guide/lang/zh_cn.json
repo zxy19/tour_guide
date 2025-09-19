@@ -19,5 +19,6 @@
   "tooltip.tour_guide.item_tour_guide": "[ %s ]",
   "tooltip.tour_guide.item_tour_guide.hold": "[%s%s]",
   "tooltip.tour_guide.item_tour_guide.start": "按住 [%s] 开始互动式导览",
-  "tooltip.tour_guide.item_tour_guide.switch": "按 [%s] 来切换行程"
+  "tooltip.tour_guide.item_tour_guide.switch": "按 [%s] 来切换行程",
+  "gui.tour_guide.key_tip_quit": "退出导览 %s"
 }

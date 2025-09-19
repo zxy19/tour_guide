@@ -5,12 +5,14 @@ import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import studio.fantasyit.tour_guide.TourGuide;
-import studio.fantasyit.tour_guide.client.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientQuitCounter;
 import studio.fantasyit.tour_guide.network.C2SInteractTourGuideData;
 import studio.fantasyit.tour_guide.network.Network;
 
@@ -32,7 +34,7 @@ public class ClientInputEvent {
     public static final Lazy<KeyMapping> KEY_QUIT = Lazy.of(() -> new KeyMapping(
             "key.tour_guide.quit",
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_ESCAPE,
+            GLFW.GLFW_KEY_END,
             "key.tour_guide.category"
     ));
     public static final Lazy<KeyMapping> KEY_START_TOUR_GUIDE = Lazy.of(() -> new KeyMapping(
@@ -66,8 +68,7 @@ public class ClientInputEvent {
         InputConstants.Key key = InputConstants.getKey(event.getKey(), event.getScanCode());
         if (event.getAction() == GLFW.GLFW_PRESS) {
             if (KEY_QUIT.get().getKey().equals(key)) {
-                Network.INSTANCE.send(PacketDistributor.SERVER.noArg(),
-                        new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.QUIT));
+                ClientQuitCounter.keyPressed();
             }
             if (KEY_SKIP.get().getKey().equals(key)) {
                 Network.INSTANCE.send(PacketDistributor.SERVER.noArg(),
@@ -98,6 +99,14 @@ public class ClientInputEvent {
             if (key.getValue() == GLFW.GLFW_KEY_LEFT_SHIFT) {
                 pressingShiftKey = false;
             }
+            if (KEY_QUIT.get().getKey().equals(key)) {
+                ClientQuitCounter.keyReleased();
+            }
         }
+    }
+
+    @SubscribeEvent
+    public static void onTick(TickEvent.ClientTickEvent event) {
+
     }
 }

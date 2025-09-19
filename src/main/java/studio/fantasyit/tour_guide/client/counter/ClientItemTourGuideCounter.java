@@ -1,4 +1,4 @@
-package studio.fantasyit.tour_guide.client;
+package studio.fantasyit.tour_guide.client.counter;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
