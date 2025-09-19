@@ -1,6 +1,7 @@
 {
   "gui.tour_guide.key_tip": "Done [%s], Skip [%s], Quit [%s]",
   "gui.tour_guide.key_tip_no_skip": "Done [%s], Quit [%s]",
+  "gui.tour_guide.key_tip_quit": "Quit the Tour %s",
   "gui.tour_guide.key_tip_shift": "Previous Step [Shift + %s]",
   "key.tour_guide.category": "Tour Guide",
   "key.tour_guide.check_step": "Done Current Stop",
@@ -19,6 +20,5 @@
   "tooltip.tour_guide.item_tour_guide": "[ %s ]",
   "tooltip.tour_guide.item_tour_guide.hold": "[%s%s]",
   "tooltip.tour_guide.item_tour_guide.start": "Hold [%s] To Start Interactive Tour",
-  "tooltip.tour_guide.item_tour_guide.switch": "Press [%s] To Switch Tour",
-  "gui.tour_guide.key_tip_quit": "Quit the Tour %s"
+  "tooltip.tour_guide.item_tour_guide.switch": "Press [%s] To Switch Tour"
 }
