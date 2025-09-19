@@ -1,5 +1,6 @@
 package studio.fantasyit.tour_guide.data;
 
+import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -13,6 +14,7 @@ import studio.fantasyit.tour_guide.network.S2CUpdateTourGuideData;
 import studio.fantasyit.tour_guide.step.ITourStepData;
 import studio.fantasyit.tour_guide.step.TourStepId;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

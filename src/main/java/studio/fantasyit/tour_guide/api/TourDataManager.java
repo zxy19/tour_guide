@@ -6,6 +6,8 @@ import net.minecraftforge.common.MinecraftForge;
 import studio.fantasyit.tour_guide.api.event.TourDataRegisterEvent;
 import studio.fantasyit.tour_guide.data.ITourDataFactory;
 import studio.fantasyit.tour_guide.data.TourData;
+import studio.fantasyit.tour_guide.integration.Integrations;
+import studio.fantasyit.tour_guide.integration.kubejs.KubeJSPort;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +22,8 @@ public class TourDataManager {
     public static void clearAndBroadcastRegister() {
         TOURS.clear();
         MinecraftForge.EVENT_BUS.post(new TourDataRegisterEvent());
+        if (Integrations.kjs())
+            KubeJSPort.reloaded();
     }
 
     public static TourData get(ResourceLocation id, ServerPlayer player) {

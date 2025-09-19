@@ -6,6 +6,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.api.event.CommonMarkSerializerRegisterEvent;
+import studio.fantasyit.tour_guide.integration.Integrations;
+import studio.fantasyit.tour_guide.integration.kubejs.KubeJSPort;
 
 @Mod.EventBusSubscriber(modid = TourGuide.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SetupEvent {
