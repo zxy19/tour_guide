@@ -9,12 +9,20 @@ import java.util.Optional;
 
 public class TourGuideTrigger {
     public static void trigger(ServerPlayer player, String key) {
-        Optional.ofNullable(TourManager.get(player)).ifPresent(t -> t.receiveTrigger(key));
+        trigger(player, key, null);
+    }
+
+    public static void trigger(ServerPlayer player, String key, Object data) {
+        Optional.ofNullable(TourManager.get(player)).ifPresent(t -> t.receiveTrigger(key, data));
     }
 
     public static void trigger(String key) {
+        trigger(key, null);
+    }
+
+    public static void trigger(String key, Object data) {
         TourManager.each(
-                t -> t.receiveTrigger(key)
+                t -> t.receiveTrigger(key, data)
         );
     }
 

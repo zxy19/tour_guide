@@ -4,7 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
+import studio.fantasyit.tour_guide.api.TourGuideTrigger;
 import studio.fantasyit.tour_guide.api.helper.TourDataBuilder;
 import studio.fantasyit.tour_guide.api.helper.TourStepBuilder;
 import studio.fantasyit.tour_guide.mark.ServerScreenPredicatorMarks;
@@ -76,5 +78,25 @@ public class TourGuideObj {
 
     public Vec3 vec(double x, double y, double z) {
         return new Vec3(x, y, z);
+    }
+
+    public void trigger(ServerPlayer player, String key, Object data) {
+        TourGuideTrigger.trigger(player, key, data);
+    }
+
+    public void triggerNoData(ServerPlayer player, String key) {
+        TourGuideTrigger.trigger(player, key);
+    }
+
+    public void triggerGlobal(String key, Object data) {
+        TourGuideTrigger.trigger(key, data);
+    }
+
+    public void triggerGlobalNoData(String key) {
+        TourGuideTrigger.trigger(key);
+    }
+
+    public void triggerClient(String key) {
+        TourGuideTrigger.triggerClient(key);
     }
 }

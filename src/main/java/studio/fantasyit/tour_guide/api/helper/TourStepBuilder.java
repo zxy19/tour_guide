@@ -43,6 +43,7 @@ public class TourStepBuilder<T> {
     private Component mainTip = null;
     private Function<TourData, T> toGetData = null;
     private Component onNoData = null;
+    private boolean finishOnTriggerAndGetData = false;
 
     public TourStepBuilder(TourDataBuilder builder, TourStepId<T> id) {
         this.builder = builder;
@@ -135,8 +136,16 @@ public class TourStepBuilder<T> {
         return this;
     }
 
+    public TourStepBuilder<T> finishOnTriggerAndGetData(boolean finishOnTriggerAndGetData, Component onNoData) {
+        this.finishOnTriggerAndGetData = finishOnTriggerAndGetData;
+        this.onNoData = onNoData;
+        return this;
+    }
+
     public ITourStepData<T> build() {
         return new ITourStepData<T>() {
+            T tData = null;
+
             @Override
             public TourStepId<T> getId() {
                 return id;
@@ -175,7 +184,9 @@ public class TourStepBuilder<T> {
                 Component d = null;
                 if (unfinishReason != null)
                     d = unfinishReason.apply(data);
-                if (d != null && toGetData != null && toGetData.apply(data) == null)
+                if (d == null && toGetData != null && toGetData.apply(data) == null)
+                    d = onNoData;
+                if (d == null && tData == null && finishOnTriggerAndGetData && onNoData != null)
                     d = onNoData;
                 return d;
             }
@@ -185,6 +196,8 @@ public class TourStepBuilder<T> {
                 T d = null;
                 if (finishCb != null)
                     d = finishCb.apply(data);
+                if (tData != null)
+                    return tData;
                 if (toGetData != null)
                     return toGetData.apply(data);
                 return d;
@@ -212,12 +225,16 @@ public class TourStepBuilder<T> {
             }
 
             @Override
-            public boolean receiveTrigger(String key) {
+            public boolean receiveTrigger(String key, Object data) {
+                boolean f = false;
                 if (triggerPredicate != null && triggerPredicate.test(key))
-                    return true;
+                    f = true;
                 if (triggers != null && triggers.contains(key))
-                    return true;
-                return false;
+                    f = true;
+                if (f && finishOnTriggerAndGetData) {
+                    tData = id.cast(data);
+                }
+                return f;
             }
         };
     }

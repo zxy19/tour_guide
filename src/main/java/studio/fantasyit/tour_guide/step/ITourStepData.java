@@ -36,7 +36,7 @@ public interface ITourStepData<T> {
 
     T finish(TourData data);
 
-    default boolean receiveTrigger(String key) {
+    default boolean receiveTrigger(String key, Object data) {
         return false;
     }
 
