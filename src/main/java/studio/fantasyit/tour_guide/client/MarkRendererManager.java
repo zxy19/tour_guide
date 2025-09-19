@@ -3,6 +3,7 @@ package studio.fantasyit.tour_guide.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -40,7 +41,7 @@ public class MarkRendererManager {
         renderers.put(id, Either.right(renderer));
     }
 
-    public static void dispatchWorldRender(IMark mark, MultiBufferSource source, Camera camera, LevelRenderer levelRenderer, PoseStack poseStack, float partialTicks) {
+    public static void dispatchWorldRender(IMark mark, MultiBufferSource source, Camera camera, LevelRenderer levelRenderer, PoseStack poseStack, DeltaTracker partialTicks) {
         if (!renderers.containsKey(mark.getId())) return;
         Either<IWorldMarkRenderer<?>, IGuiMarkRenderer<?>> iWorldMarkRendererIGuiMarkRendererEither = renderers.get(mark.getId());
         iWorldMarkRendererIGuiMarkRendererEither.ifLeft(i -> {

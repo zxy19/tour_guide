@@ -4,11 +4,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import studio.fantasyit.tour_guide.api.TourManager;
 import studio.fantasyit.tour_guide.mark.IMark;
-import studio.fantasyit.tour_guide.network.Network;
 import studio.fantasyit.tour_guide.network.S2CUpdateTourGuideData;
 import studio.fantasyit.tour_guide.step.ITourStepData;
 import studio.fantasyit.tour_guide.step.TourStepId;
@@ -108,8 +107,7 @@ public class TourData {
             }
         }
         currentStep.sendExtraTip(this);
-        Network.INSTANCE
-                .send(PacketDistributor.PLAYER.with(() -> player), new S2CUpdateTourGuideData(init));
+        PacketDistributor.sendToPlayer(player, new S2CUpdateTourGuideData(init));
     }
 
     public void stop() {
@@ -120,8 +118,7 @@ public class TourData {
     }
 
     public void terminate() {
-        Network.INSTANCE
-                .send(PacketDistributor.PLAYER.with(() -> player), new S2CUpdateTourGuideData(List.of()));
+        PacketDistributor.sendToPlayer(player, new S2CUpdateTourGuideData(List.of()));
         TourManager.remove(player);
     }
 

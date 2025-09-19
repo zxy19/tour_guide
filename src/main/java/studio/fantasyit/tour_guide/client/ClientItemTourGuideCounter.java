@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.network.PacketDistributor;
 import studio.fantasyit.tour_guide.client.event.ClientInputEvent;
 import studio.fantasyit.tour_guide.data.ItemTourGuide;
 import studio.fantasyit.tour_guide.network.C2SStartTourGuide;
@@ -76,7 +77,7 @@ public class ClientItemTourGuideCounter {
     }
 
     private static void sendStart() {
-        Network.INSTANCE.sendToServer(new C2SStartTourGuide(ItemTourGuide.get(lastItem, offset)));
+        PacketDistributor.sendToServer(new C2SStartTourGuide(ItemTourGuide.get(lastItem, offset)));
         Minecraft.getInstance().player.closeContainer();
         Minecraft.getInstance().setScreen(new BlockHoldKeyScreen());
     }

@@ -1,14 +1,13 @@
 package studio.fantasyit.tour_guide.data;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.network.PacketDistributor;
 import oshi.util.tuples.Pair;
 import studio.fantasyit.tour_guide.api.event.ItemTourGuideRegisterEvent;
-import studio.fantasyit.tour_guide.network.Network;
 import studio.fantasyit.tour_guide.network.S2CSyncTriggerableItems;
 
 import java.util.ArrayList;
@@ -31,14 +30,14 @@ public class ItemTourGuide {
     }
 
     public static void syncTo(ServerPlayer player) {
-        Network.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new S2CSyncTriggerableItems(
+        PacketDistributor.sendToPlayer(player, new S2CSyncTriggerableItems(
                 itemTourGuide
                         .entrySet()
                         .stream()
                         .flatMap(t ->
                                 t.getValue()
                                         .stream()
-                                        .map(tt -> new Pair<>(ForgeRegistries.ITEMS.getKey(t.getKey()), tt))
+                                        .map(tt -> new Pair<>(BuiltInRegistries.ITEM.getKey(t.getKey()), tt))
                         )
                         .toList()
         ));
@@ -46,7 +45,7 @@ public class ItemTourGuide {
 
     public static void clearAndBroadcastRegister() {
         clear();
-        MinecraftForge.EVENT_BUS.post(new ItemTourGuideRegisterEvent());
+        NeoForge.EVENT_BUS.post(new ItemTourGuideRegisterEvent());
     }
 
     public static int getCount(Item item) {

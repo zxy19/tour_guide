@@ -2,7 +2,7 @@ package studio.fantasyit.tour_guide.api;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import studio.fantasyit.tour_guide.api.event.TourDataRegisterEvent;
 import studio.fantasyit.tour_guide.data.ITourDataFactory;
 import studio.fantasyit.tour_guide.data.TourData;
@@ -19,7 +19,7 @@ public class TourDataManager {
 
     public static void clearAndBroadcastRegister() {
         TOURS.clear();
-        MinecraftForge.EVENT_BUS.post(new TourDataRegisterEvent());
+        NeoForge.EVENT_BUS.post(new TourDataRegisterEvent());
     }
 
     public static TourData get(ResourceLocation id, ServerPlayer player) {

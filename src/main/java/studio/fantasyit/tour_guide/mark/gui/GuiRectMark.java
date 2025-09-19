@@ -8,7 +8,7 @@ import studio.fantasyit.tour_guide.mark.IGuiMark;
 public record GuiRectMark(ResourceLocation screenPredicate, int x, int y, int width, int height,
                           int color,int fill) implements IGuiMark {
 
-    public static final ResourceLocation ID = new ResourceLocation(TourGuide.MODID, "gui_rect");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TourGuide.MODID, "gui_rect");
     @Override
     public ResourceLocation getId() {
         return ID;

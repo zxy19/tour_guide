@@ -1,12 +1,25 @@
 package studio.fantasyit.tour_guide.network;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.api.TourGuideTrigger;
 
-import java.util.function.Supplier;
+public record C2SClientTrigger(String name) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<C2SClientTrigger> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath(
+                    TourGuide.MODID, "c2s_client_trigger"
+            )
+    );
 
-public record C2SClientTrigger(String name) {
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
+
     public static C2SClientTrigger fromNetwork(FriendlyByteBuf buf) {
         return new C2SClientTrigger(buf.readUtf());
     }
@@ -15,10 +28,9 @@ public record C2SClientTrigger(String name) {
         buf.writeUtf(name);
     }
 
-    public static void handle(C2SClientTrigger packet, Supplier<NetworkEvent.Context> ctxGetter) {
-        ctxGetter.get().enqueueWork(() -> {
-            TourGuideTrigger.trigger(ctxGetter.get().getSender(), packet.name);
+    public static void handle(C2SClientTrigger packet, IPayloadContext ctxGetter) {
+        ctxGetter.enqueueWork(() -> {
+            TourGuideTrigger.trigger((ServerPlayer) ctxGetter.player(), packet.name);
         });
-        ctxGetter.get().setPacketHandled(true);
     }
 }

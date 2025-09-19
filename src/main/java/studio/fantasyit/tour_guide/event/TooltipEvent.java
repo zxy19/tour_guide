@@ -1,12 +1,12 @@
 package studio.fantasyit.tour_guide.event;
 
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.client.ClientItemTourGuideCounter;
 
-@Mod.EventBusSubscriber(modid = TourGuide.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class TooltipEvent {
 
     @SubscribeEvent

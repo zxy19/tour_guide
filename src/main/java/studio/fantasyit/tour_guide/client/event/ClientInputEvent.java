@@ -2,19 +2,19 @@ package studio.fantasyit.tour_guide.client.event;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.client.ClientItemTourGuideCounter;
 import studio.fantasyit.tour_guide.network.C2SInteractTourGuideData;
-import studio.fantasyit.tour_guide.network.Network;
 
-@Mod.EventBusSubscriber(modid = TourGuide.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 
 public class ClientInputEvent {
     public static final Lazy<KeyMapping> KEY_CHECK_STEP = Lazy.of(() -> new KeyMapping(
@@ -48,8 +48,9 @@ public class ClientInputEvent {
             "key.tour_guide.category"
     ));
     public static boolean pressingShiftKey = false;
+    public static boolean pressingEscapeKey = false;
 
-    @Mod.EventBusSubscriber(modid = TourGuide.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ModBus {
         @SubscribeEvent
         public static void registerKeyMappings(final RegisterKeyMappingsEvent event) {
@@ -62,24 +63,20 @@ public class ClientInputEvent {
     }
 
     @SubscribeEvent
-    public static void onKey(net.minecraftforge.client.event.InputEvent.Key event) {
+    public static void onKey(InputEvent.Key event) {
         InputConstants.Key key = InputConstants.getKey(event.getKey(), event.getScanCode());
         if (event.getAction() == GLFW.GLFW_PRESS) {
             if (KEY_QUIT.get().getKey().equals(key)) {
-                Network.INSTANCE.send(PacketDistributor.SERVER.noArg(),
-                        new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.QUIT));
+                PacketDistributor.sendToServer(new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.QUIT));
             }
             if (KEY_SKIP.get().getKey().equals(key)) {
-                Network.INSTANCE.send(PacketDistributor.SERVER.noArg(),
-                        new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.SKIP));
+                PacketDistributor.sendToServer(new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.SKIP));
             }
             if (KEY_CHECK_STEP.get().getKey().equals(key)) {
                 if ((event.getModifiers() & GLFW.GLFW_MOD_SHIFT) != 0)
-                    Network.INSTANCE.send(PacketDistributor.SERVER.noArg(),
-                            new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.BACK));
+                    PacketDistributor.sendToServer(new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.BACK));
                 else
-                    Network.INSTANCE.send(PacketDistributor.SERVER.noArg(),
-                            new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.DONE));
+                    PacketDistributor.sendToServer(new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.DONE));
             }
             if (KEY_START_TOUR_GUIDE.get().getKey().equals(key)) {
                 ClientItemTourGuideCounter.keyPressed();

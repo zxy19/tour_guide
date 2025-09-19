@@ -1,21 +1,21 @@
 package studio.fantasyit.tour_guide.client.event;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoader;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoader;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.api.event.ClientMarkRendererRegisterEvent;
 import studio.fantasyit.tour_guide.api.event.ScreenPredicatorRegisterEvent;
 
-@Mod.EventBusSubscriber(modid = TourGuide.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class SetupEvent {
     @SubscribeEvent
     public static void onSetup(FMLLoadCompleteEvent event) {
         event.enqueueWork(() -> {
-            ModLoader.get().postEvent(new ClientMarkRendererRegisterEvent());
-            ModLoader.get().postEvent(new ScreenPredicatorRegisterEvent());
+            ModLoader.postEvent(new ClientMarkRendererRegisterEvent());
+            ModLoader.postEvent(new ScreenPredicatorRegisterEvent());
         });
     }
 }

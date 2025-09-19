@@ -3,14 +3,26 @@ package studio.fantasyit.tour_guide.network;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.api.TourManager;
 import studio.fantasyit.tour_guide.data.TourData;
 
 import java.util.function.Supplier;
 
-public record C2SInteractTourGuideData(Type type) {
+public record C2SInteractTourGuideData(Type _type) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<C2SInteractTourGuideData> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath(
+                    TourGuide.MODID, "c2s_interact"
+            )
+    );
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
     public enum Type {
         DONE,
         QUIT,
@@ -19,25 +31,22 @@ public record C2SInteractTourGuideData(Type type) {
     }
 
     public void toNetwork(FriendlyByteBuf buf) {
-        buf.writeEnum(type);
+        buf.writeEnum(_type);
     }
 
     public static C2SInteractTourGuideData fromNetwork(FriendlyByteBuf buf) {
         return new C2SInteractTourGuideData(buf.readEnum(Type.class));
     }
 
-    public static void handle(C2SInteractTourGuideData packet, Supplier<NetworkEvent.Context> ctxGetter) {
-        ctxGetter.get().enqueueWork(() -> {
-            ServerPlayer sender = ctxGetter.get().getSender();
-            if (sender == null) {
-                return;
-            }
+    public static void handle(C2SInteractTourGuideData packet, IPayloadContext ctxGetter) {
+        ctxGetter.enqueueWork(() -> {
+            ServerPlayer sender = (ServerPlayer) ctxGetter.player();
             TourData tourData = TourManager.get(sender);
             if (tourData == null) {
                 return;
             }
             try {
-                switch (packet.type) {
+                switch (packet._type) {
                     case DONE -> tourData.doneAndTryNextStep();
                     case SKIP -> tourData.skipAndTryNextStep();
                     case QUIT -> tourData.stop();
@@ -47,6 +56,5 @@ public record C2SInteractTourGuideData(Type type) {
                 sender.sendSystemMessage(Component.literal(e.getMessage()).withStyle(ChatFormatting.RED));
             }
         });
-        ctxGetter.get().setPacketHandled(true);
     }
 }

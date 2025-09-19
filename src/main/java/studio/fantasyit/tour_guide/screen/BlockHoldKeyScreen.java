@@ -14,10 +14,6 @@ public class BlockHoldKeyScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics p_283688_) {
-    }
-
-    @Override
     public boolean isPauseScreen() {
         return false;
     }

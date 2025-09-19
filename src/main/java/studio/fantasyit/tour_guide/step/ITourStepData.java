@@ -1,7 +1,7 @@
 package studio.fantasyit.tour_guide.step;
 
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import studio.fantasyit.tour_guide.data.TourData;
 import studio.fantasyit.tour_guide.mark.IMark;
@@ -41,7 +41,6 @@ public interface ITourStepData<T> {
     }
 
     default void sendExtraTip(TourData tourData) {
-        Network.INSTANCE
-                .send(PacketDistributor.PLAYER.with(tourData::getPlayer), new S2CTipMessage(allowSkip(),false));
+        PacketDistributor.sendToPlayer(tourData.getPlayer(), new S2CTipMessage(allowSkip(),false));
     }
 }

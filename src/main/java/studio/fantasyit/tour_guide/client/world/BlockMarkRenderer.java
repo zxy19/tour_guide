@@ -3,6 +3,7 @@ package studio.fantasyit.tour_guide.client.world;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,7 +16,7 @@ import studio.fantasyit.tour_guide.mark.world.BlockMark;
 
 public class BlockMarkRenderer implements IWorldMarkRenderer<BlockMark>, ITextLikeRenderer {
     @Override
-    public void render(MultiBufferSource source, LevelRenderer levelRenderer, PoseStack poseStack, Camera camera, float partialTicks, BlockMark mark, Context context) {
+    public void render(MultiBufferSource source, LevelRenderer levelRenderer, PoseStack poseStack, Camera camera, DeltaTracker partialTicks, BlockMark mark, Context context) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) {
             return;
@@ -62,7 +63,7 @@ public class BlockMarkRenderer implements IWorldMarkRenderer<BlockMark>, ITextLi
         }
 
         Vec3 livingFrom = mark.pos().getCenter().add(0, 0.7f, 0);
-        drawText(poseStack, partialTicks, mc, camera, livingFrom, mark.text(), 0xffffffff, context.floating().getOrDefault(mark.pos(), 0) * 0.3f);
+        drawText(poseStack, partialTicks.getGameTimeDeltaPartialTick(true), mc, camera, livingFrom, mark.text(), 0xffffffff, context.floating().getOrDefault(mark.pos(), 0) * 0.3f);
         context.floating().put(mark.pos(), context.floating().getOrDefault(mark.pos(), 0) + 1);
     }
 }

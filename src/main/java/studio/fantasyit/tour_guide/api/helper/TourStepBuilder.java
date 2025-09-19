@@ -1,13 +1,12 @@
 package studio.fantasyit.tour_guide.api.helper;
 
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import studio.fantasyit.tour_guide.data.TourData;
 import studio.fantasyit.tour_guide.mark.IMark;
 import studio.fantasyit.tour_guide.mark.ServerScreenPredicatorMarks;
 import studio.fantasyit.tour_guide.mark.gui.GuiMainTipMark;
-import studio.fantasyit.tour_guide.network.Network;
 import studio.fantasyit.tour_guide.network.S2CTipMessage;
 import studio.fantasyit.tour_guide.step.ITourStepData;
 import studio.fantasyit.tour_guide.step.TourStepId;
@@ -209,8 +208,7 @@ public class TourStepBuilder<T> {
 
             @Override
             public void sendExtraTip(TourData tourData) {
-                Network.INSTANCE
-                        .send(PacketDistributor.PLAYER.with(tourData::getPlayer), new S2CTipMessage(allowSkip(), noCondition));
+                PacketDistributor.sendToPlayer(tourData.getPlayer(), new S2CTipMessage(allowSkip(), noCondition));
             }
 
             @Override

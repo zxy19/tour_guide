@@ -6,7 +6,7 @@ import studio.fantasyit.tour_guide.TourGuide;
 import studio.fantasyit.tour_guide.mark.IGuiMark;
 
 public record GuiSlotMark(ResourceLocation screenPredicate, int id, int color) implements IGuiMark {
-    public static final ResourceLocation ID = new ResourceLocation(TourGuide.MODID, "gui_slot");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(TourGuide.MODID, "gui_slot");
     @Override
     public ResourceLocation getId() {
         return ID;
