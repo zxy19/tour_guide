@@ -36,12 +36,12 @@ public interface ITourStepData<T> {
 
     T finish(TourData data);
 
-    default boolean receiveTrigger(String key) {
+    default boolean receiveTrigger(String key, Object data) {
         return false;
     }
 
     default void sendExtraTip(TourData tourData) {
         Network.INSTANCE
-                .send(PacketDistributor.PLAYER.with(tourData::getPlayer), new S2CTipMessage(allowSkip(),false));
+                .send(PacketDistributor.PLAYER.with(tourData::getPlayer), new S2CTipMessage(allowSkip(), false));
     }
 }
