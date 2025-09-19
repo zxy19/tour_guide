@@ -11,7 +11,8 @@ import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import studio.fantasyit.tour_guide.TourGuide;
-import studio.fantasyit.tour_guide.client.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientQuitCounter;
 import studio.fantasyit.tour_guide.network.C2SInteractTourGuideData;
 
 @EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
@@ -32,7 +33,7 @@ public class ClientInputEvent {
     public static final Lazy<KeyMapping> KEY_QUIT = Lazy.of(() -> new KeyMapping(
             "key.tour_guide.quit",
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_ESCAPE,
+            GLFW.GLFW_KEY_END,
             "key.tour_guide.category"
     ));
     public static final Lazy<KeyMapping> KEY_START_TOUR_GUIDE = Lazy.of(() -> new KeyMapping(
@@ -67,7 +68,7 @@ public class ClientInputEvent {
         InputConstants.Key key = InputConstants.getKey(event.getKey(), event.getScanCode());
         if (event.getAction() == GLFW.GLFW_PRESS) {
             if (KEY_QUIT.get().getKey().equals(key)) {
-                PacketDistributor.sendToServer(new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.QUIT));
+                ClientQuitCounter.keyPressed();
             }
             if (KEY_SKIP.get().getKey().equals(key)) {
                 PacketDistributor.sendToServer(new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.SKIP));
@@ -95,6 +96,14 @@ public class ClientInputEvent {
             if (key.getValue() == GLFW.GLFW_KEY_LEFT_SHIFT) {
                 pressingShiftKey = false;
             }
+            if (KEY_QUIT.get().getKey().equals(key)) {
+                ClientQuitCounter.keyReleased();
+            }
         }
+    }
+
+    @SubscribeEvent
+    public static void onTick(TickEvent.ClientTickEvent event) {
+
     }
 }

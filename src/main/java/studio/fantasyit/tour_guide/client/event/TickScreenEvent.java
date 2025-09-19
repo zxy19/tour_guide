@@ -7,7 +7,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import studio.fantasyit.tour_guide.TourGuide;
-import studio.fantasyit.tour_guide.client.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientQuitCounter;
 
 @EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class TickScreenEvent {
@@ -18,5 +19,6 @@ public class TickScreenEvent {
         } else {
             ClientItemTourGuideCounter.updateHoveredItem(null);
         }
+        ClientQuitCounter.tick();
     }
 }

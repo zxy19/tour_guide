@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import studio.fantasyit.tour_guide.client.IGuiMarkRenderer;
+import studio.fantasyit.tour_guide.client.counter.ClientQuitCounter;
 import studio.fantasyit.tour_guide.client.event.ClientInputEvent;
 import studio.fantasyit.tour_guide.mark.gui.GuiMainTipMark;
 
@@ -19,7 +20,11 @@ public class GuiMainTipMarkRenderer implements IGuiMarkRenderer<GuiMainTipMark> 
     @Override
     public void render(GuiGraphics graphics, GuiMainTipMark mark, Screen screen) {
         Component keyTip;
-        if (ClientInputEvent.pressingShiftKey) {
+        if (ClientQuitCounter.isPressingQuitKey()) {
+            keyTip = Component.translatable("gui.tour_guide.key_tip_quit",
+                    ClientQuitCounter.getPressingProgressBar()
+            );
+        } else if (ClientInputEvent.pressingShiftKey) {
             keyTip = Component.translatable("gui.tour_guide.key_tip_shift",
                     ClientInputEvent.KEY_CHECK_STEP.get().getKey().getDisplayName()
             );
@@ -38,7 +43,7 @@ public class GuiMainTipMarkRenderer implements IGuiMarkRenderer<GuiMainTipMark> 
 
         int width = Math.max(Minecraft.getInstance().font.width(keyTip) + 2 * thickness, _width);
         int height = Minecraft.getInstance().font.split(mark.text(), width - thickness * 2 - 4).size() * (Minecraft.getInstance().font.lineHeight + 2) + 2 * thickness;
-        graphics.fill(x, y, x + thickness , y + height, COLOR);
+        graphics.fill(x, y, x + thickness, y + height, COLOR);
         graphics.fill(x + width - thickness, y, x + width, y + height, COLOR);
         graphics.fill(x + thickness, y, x + width - thickness, y + thickness, COLOR);
         graphics.fill(x + thickness, y + height - thickness, x + width - thickness, y + height, COLOR);

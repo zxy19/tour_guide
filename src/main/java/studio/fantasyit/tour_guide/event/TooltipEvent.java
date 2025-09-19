@@ -4,7 +4,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import studio.fantasyit.tour_guide.TourGuide;
-import studio.fantasyit.tour_guide.client.ClientItemTourGuideCounter;
+import studio.fantasyit.tour_guide.client.counter.ClientItemTourGuideCounter;
 
 @EventBusSubscriber(modid = TourGuide.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class TooltipEvent {

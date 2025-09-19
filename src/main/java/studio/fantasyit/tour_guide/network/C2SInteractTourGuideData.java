@@ -49,7 +49,7 @@ public record C2SInteractTourGuideData(Type _type) implements CustomPacketPayloa
                 switch (packet._type) {
                     case DONE -> tourData.doneAndTryNextStep();
                     case SKIP -> tourData.skipAndTryNextStep();
-                    case QUIT -> tourData.stop();
+                    case QUIT -> tourData.terminate();
                     case BACK -> tourData.goPrevStep();
                 }
             } catch (Exception e) {
