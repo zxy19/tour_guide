@@ -3,9 +3,8 @@ package studio.fantasyit.tour_guide.client.counter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import studio.fantasyit.tour_guide.network.C2SInteractTourGuideData;
-import studio.fantasyit.tour_guide.network.Network;
 import studio.fantasyit.tour_guide.screen.BlockHoldKeyScreen;
 
 public class ClientQuitCounter {
@@ -54,7 +53,6 @@ public class ClientQuitCounter {
     }
 
     private static void sendQuit() {
-        Network.INSTANCE.send(PacketDistributor.SERVER.noArg(),
-                new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.QUIT));
+        PacketDistributor.sendToServer(new C2SInteractTourGuideData(C2SInteractTourGuideData.Type.QUIT));
     }
 }
