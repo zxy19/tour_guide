@@ -9,6 +9,8 @@ import net.minecraft.world.phys.Vec3;
 import studio.fantasyit.tour_guide.api.TourGuideTrigger;
 import studio.fantasyit.tour_guide.api.helper.TourDataBuilder;
 import studio.fantasyit.tour_guide.api.helper.TourStepBuilder;
+import studio.fantasyit.tour_guide.mark.IGuiMark;
+import studio.fantasyit.tour_guide.mark.IMark;
 import studio.fantasyit.tour_guide.mark.ServerScreenPredicatorMarks;
 import studio.fantasyit.tour_guide.mark.gui.GuiMainTipMark;
 import studio.fantasyit.tour_guide.mark.gui.GuiRectMark;
@@ -39,36 +41,36 @@ public class TourGuideObj {
         return new TourStepId<>(id, caster);
     }
 
-    public GuiMainTipMark makeGuiMainTipMark(ResourceLocation screenPredicate, Component text, boolean allowSkip) {
+    public IMark makeGuiMainTipMark(ResourceLocation screenPredicate, Component text, boolean allowSkip) {
         return new GuiMainTipMark(screenPredicate, text, allowSkip);
     }
 
-    public GuiRectMark makeGuiRectMark(ResourceLocation screenPredicate, int x, int y, int width, int height, int color, int fill) {
-        return new GuiRectMark(screenPredicate, x, y, width, height, color, fill);
+    public IMark makeGuiRectMark(ResourceLocation screenPredicate, int x, int y, int width, int height, long color, int fill) {
+        return new GuiRectMark(screenPredicate, x, y, width, height, (int)color, fill);
     }
 
-    public GuiSlotMark makeGuiSlotMark(ResourceLocation screenPredicate, int id, int color) {
-        return new GuiSlotMark(screenPredicate, id, color);
+    public IMark makeGuiSlotMark(ResourceLocation screenPredicate, int id, long color) {
+        return new GuiSlotMark(screenPredicate, id, (int)color);
     }
 
-    public GuiTextMark makeGuiTextMark(ResourceLocation screenPredicate, Component text, int x, int y, int width, int color, int background) {
-        return new GuiTextMark(screenPredicate, text, x, y, width, color, background);
+    public IMark makeGuiTextMark(ResourceLocation screenPredicate, Component text, int x, int y, int width, long color, int background) {
+        return new GuiTextMark(screenPredicate, text, x, y, width, (int)color, background);
     }
 
-    public BlockMark makeBlockMark(BlockPos pos, int color, Component text) {
-        return new BlockMark(pos, null, color, text);
+    public IMark makeBlockMark(BlockPos pos, long color, Component text) {
+        return new BlockMark(pos, null, (int)color, text);
     }
 
-    public BlockMark makeBlockMarkWithFace(BlockPos pos, Direction face, int color, Component text) {
-        return new BlockMark(pos, face, color, text);
+    public IMark makeBlockMarkWithFace(BlockPos pos, Direction face, long color, Component text) {
+        return new BlockMark(pos, face, (int)color, text);
     }
 
-    public EntityMark makeEntityMark(int entityId, int color, Component text) {
-        return new EntityMark(entityId, color, text);
+    public IMark makeEntityMark(int entityId, long color, Component text) {
+        return new EntityMark(entityId, (int)color, text);
     }
 
-    public TextMark makeTextMark(Vec3 pos, Component text, int color) {
-        return new TextMark(text, pos, color);
+    public IMark makeTextMark(Vec3 pos, Component text, long color) {
+        return new TextMark(text, pos, (int)color);
     }
 
     public void trigger(ServerPlayer player, String key, Object data) {

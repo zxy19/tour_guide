@@ -9,12 +9,17 @@ import java.util.List;
 public class DataHelpers {
     public static DataHelpers INSTANCE = new DataHelpers();
 
-    public int rgba2argb(int r, int g, int b, int a) {
-        return (a << 24) | (r << 16) | (g << 8) | b;
+    public long rgba2argb(int r, int g, int b, int a) {
+        return ((long) a << 24) | ((long) r << 16) | ((long) g << 8) | b;
     }
 
-    public int hex2argb(long hex) {
-        return (int) hex;
+    public long argb(int a, int r, int g, int b) {
+        return ((long) a << 24) | ((long) r << 16) | ((long) g << 8) | b;
+    }
+
+
+    public long hex2argb(long hex) {
+        return hex;
     }
 
     public <T> List<T> list(T[] arr) {
@@ -41,6 +46,7 @@ public class DataHelpers {
     public Component translatable(String key) {
         return Component.translatable(key);
     }
+
     public Component translatableA(String key, Object... args) {
         return Component.translatable(key, args);
     }
