@@ -33,13 +33,17 @@ public class ScreenPredicatorAndTransformer {
             ServerScreenPredicatorMarks.NO_GUI, screen -> screen == null || screen instanceof ChatScreen || screen instanceof BlockHoldKeyScreen
     ));
 
-    public static boolean predicate(ResourceLocation id, Screen screen) {
+    public static boolean predicate(ResourceLocation _id, Screen screen) {
+        ResourceLocation id = ServerScreenPredicatorMarks.base(_id);
         if (SCREEN_PREDICATORS.containsKey(id))
             return SCREEN_PREDICATORS.get(id).test(screen);
         return false;
     }
 
     public static void transform(ResourceLocation id, Screen screen, GuiGraphics graphics) {
+        if (ServerScreenPredicatorMarks.isNoTransform(id)) {
+            return;
+        }
         if (SCREEN_GRAPHICS_TRANSFORMERS.containsKey(id))
             SCREEN_GRAPHICS_TRANSFORMERS.get(id).accept(screen, graphics);
         else
