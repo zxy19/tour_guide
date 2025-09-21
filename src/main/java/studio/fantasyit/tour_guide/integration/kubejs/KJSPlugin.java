@@ -4,6 +4,7 @@ import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;
 import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.rhino.util.wrap.TypeWrappers;
+import studio.fantasyit.tour_guide.integration.kubejs.helper.DataHelpers;
 import studio.fantasyit.tour_guide.integration.kubejs.helper.TourGuideObj;
 
 public class KJSPlugin extends KubeJSPlugin {
@@ -20,7 +21,8 @@ public class KJSPlugin extends KubeJSPlugin {
 
     @Override
     public void registerBindings(BindingsEvent event) {
-        event.add("TourGuide", new TourGuideObj());
+        event.add("TourGuide", TourGuideObj.INSTANCE);
+        event.add("TourGuideData", DataHelpers.INSTANCE);
     }
 
 }
