@@ -60,7 +60,7 @@ public class TourStepBuilder<T> {
         return this;
     }
 
-    public TourStepBuilder<T> chat(List<Component> chat) {
+    public TourStepBuilder<T> chats(List<Component> chat) {
         this.chat = chat;
         return this;
     }
