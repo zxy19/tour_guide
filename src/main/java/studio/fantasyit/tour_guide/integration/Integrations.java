@@ -1,6 +1,7 @@
 package studio.fantasyit.tour_guide.integration;
 
-import net.minecraftforge.fml.ModList;
+
+import net.neoforged.fml.ModList;
 
 public class Integrations {
     public static boolean kjs() {

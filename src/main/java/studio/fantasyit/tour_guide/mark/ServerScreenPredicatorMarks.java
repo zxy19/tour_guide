@@ -8,12 +8,12 @@ public class ServerScreenPredicatorMarks {
     public static final ResourceLocation NO_GUI = ResourceLocation.fromNamespaceAndPath(TourGuide.MODID, "no_gui");
 
     public static ResourceLocation noTransform(ResourceLocation id) {
-        return new ResourceLocation(id.getNamespace(), "no_transform/" + id.getPath());
+        return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "no_transform/" + id.getPath());
     }
 
     public static ResourceLocation base(ResourceLocation id) {
         if (isNoTransform(id)) {
-            return new ResourceLocation(id.getNamespace(), id.getPath().substring("no_transform/".length()));
+            return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().substring("no_transform/".length()));
         }
         return id;
     }

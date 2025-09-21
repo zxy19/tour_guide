@@ -40,7 +40,7 @@ public class TourDataBuilder {
     }
 
     public TourStepBuilder<Boolean> stepAnonymous() {
-        ResourceLocation id = new ResourceLocation(TourGuide.MODID, "anonymous_step/" + steps.size());
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(TourGuide.MODID, "anonymous_step/" + steps.size());
         return stepBoolean(id);
     }
 

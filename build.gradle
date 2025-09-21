@@ -99,9 +99,23 @@ repositories {
     flatDir {
         dir 'libs'
     }
+    maven {
+        url "https://cursemaven.com"
+    }
+    maven { url = "https://maven.architectury.dev/" }
+    maven { url = "https://maven.latvian.dev/releases" }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+    compileOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+    compileOnly "dev.latvian.mods:rhino-neoforge:${rhino_version}"
+    compileOnly "dev.architectury:architectury-neoforge:${architectury_version}"
+
+    runtimeOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+    runtimeOnly "dev.latvian.mods:rhino-neoforge:${rhino_version}"
+    runtimeOnly "dev.architectury:architectury-neoforge:${architectury_version}"
+    runtimeOnly "curse.maven:touhou-little-maid-355044:6911706"
 }
 
 
