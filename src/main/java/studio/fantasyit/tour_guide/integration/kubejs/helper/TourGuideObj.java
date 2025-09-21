@@ -71,15 +71,6 @@ public class TourGuideObj {
         return new TextMark(text, pos, color);
     }
 
-
-    public BlockPos pos(int x, int y, int z) {
-        return new BlockPos(x, y, z);
-    }
-
-    public Vec3 vec(double x, double y, double z) {
-        return new Vec3(x, y, z);
-    }
-
     public void trigger(ServerPlayer player, String key, Object data) {
         TourGuideTrigger.trigger(player, key, data);
     }
