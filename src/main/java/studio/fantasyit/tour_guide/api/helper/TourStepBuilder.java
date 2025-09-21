@@ -1,6 +1,7 @@
 package studio.fantasyit.tour_guide.api.helper;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import studio.fantasyit.tour_guide.data.TourData;
@@ -45,6 +46,8 @@ public class TourStepBuilder<T> {
     private Function<TourData, T> toGetData = null;
     private Component onNoData = null;
     private boolean finishOnTriggerAndGetData = false;
+    private ResourceLocation guiTipScreen = null;
+    private Component guiTip = null;
 
     public TourStepBuilder(TourDataBuilder builder, TourStepId<T> id) {
         this.builder = builder;
@@ -73,6 +76,13 @@ public class TourStepBuilder<T> {
 
     public TourStepBuilder<T> mainTipNoGui(Component tip) {
         this.mainTip = tip;
+        return this;
+    }
+
+    public TourStepBuilder<T> mainTip(Component tipNoGui, ResourceLocation screenPredicate, Component tipGui) {
+        this.mainTip = tipGui;
+        this.guiTipScreen = screenPredicate;
+        this.guiTip = tipNoGui;
         return this;
     }
 
@@ -173,6 +183,8 @@ public class TourStepBuilder<T> {
                 ArrayList<IMark> tMarks = new ArrayList<>();
                 if (mainTip != null)
                     tMarks.add(new GuiMainTipMark(ServerScreenPredicatorMarks.NO_GUI, mainTip, allowSkip));
+                if (guiTip != null && guiTipScreen != null)
+                    tMarks.add(new GuiMainTipMark(guiTipScreen, guiTip, allowSkip));
                 if (marks != null)
                     tMarks.addAll(marks);
                 if (dynamicMarks != null)
