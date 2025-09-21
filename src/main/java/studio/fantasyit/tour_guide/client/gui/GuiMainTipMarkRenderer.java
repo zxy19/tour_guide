@@ -3,10 +3,12 @@ package studio.fantasyit.tour_guide.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import studio.fantasyit.tour_guide.client.IGuiMarkRenderer;
 import studio.fantasyit.tour_guide.client.counter.ClientQuitCounter;
 import studio.fantasyit.tour_guide.client.event.ClientInputEvent;
+import studio.fantasyit.tour_guide.mark.ServerScreenPredicatorMarks;
 import studio.fantasyit.tour_guide.mark.gui.GuiMainTipMark;
 
 public class GuiMainTipMarkRenderer implements IGuiMarkRenderer<GuiMainTipMark> {
@@ -42,6 +44,9 @@ public class GuiMainTipMarkRenderer implements IGuiMarkRenderer<GuiMainTipMark> 
         }
 
         int width = Math.max(Minecraft.getInstance().font.width(keyTip) + 2 * thickness, _width);
+        if (screen instanceof AbstractContainerScreen<?> containerScreen && ServerScreenPredicatorMarks.isNoTransform(mark.screenPredicate())) {
+            graphics.pose().translate(containerScreen.getGuiLeft() + (int)((containerScreen.getXSize() - width) / 2), 0, 0);
+        }
         int height = Minecraft.getInstance().font.split(mark.text(), width - thickness * 2 - 4).size() * (Minecraft.getInstance().font.lineHeight + 2) + 2 * thickness;
         graphics.fill(x, y, x + thickness, y + height, COLOR);
         graphics.fill(x + width - thickness, y, x + width, y + height, COLOR);
