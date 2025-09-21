@@ -57,6 +57,10 @@ public class TourGuideObj {
         return new GuiTextMark(screenPredicate, text, x, y, width, (int)color, background);
     }
 
+    public ResourceLocation noTransform(ResourceLocation id){
+        return ServerScreenPredicatorMarks.noTransform(id);
+    }
+
     public IMark makeBlockMark(BlockPos pos, long color, Component text) {
         return new BlockMark(pos, null, (int)color, text);
     }
